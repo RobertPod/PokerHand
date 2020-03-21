@@ -1,15 +1,29 @@
 object PokerHand {
+  val figuresIndex: Map[Char, Int] = List('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A')
+    .zipWithIndex.toMap
+
   def evaluate(hand: String): String = {
-    val (_, maxChar) = hand
+    val value: List[(Char, Int)] = hand
       .split(" ")
       .map { card =>
         card
           .toList match {
-          case List('J', _) => (11, 'J')
-          case List(figure, _) => (figure.toString.toInt, figure)
+          case List(figure, _) => (figuresIndex.get(figure), figure)
         }
       }
-      .max
-    "high card : " + maxChar
+      .groupBy(_._2)
+      .map(t => (t._1, t._2.size))
+      .toList
+      .sortBy(_._2)(Ordering[Int].reverse)
+    // '5' => 1
+    // 'A' => 2
+    val (figure, occurrences) = value.head
+    if (occurrences == 2) {
+      "pair of : " + figure
+    } else {
+      val (_, maxChar) = value
+        .max
+      "high card : " + maxChar
+    }
   }
 }
