@@ -35,5 +35,13 @@ class PokerHandTest extends AnyWordSpec with Matchers {
     "pick two pairs of A, K" in {
       PokerHand.evaluate("5H KC KS AS AD") should equal("two pairs of : A, K")
     }
+
+    "pick threes of Q" in {
+      PokerHand.evaluate("5H KC QS QS QD") should equal("threes of : Q")
+    }
+
+    "pick Full House of 4 and 6" in {
+      PokerHand.evaluate("6H 4C 6S 4S 4D") should equal("Full House of : 4 and 6")
+    }
   }
 }

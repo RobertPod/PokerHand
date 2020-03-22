@@ -31,7 +31,13 @@ object PokerHand {
       .sorted
 
     val maxCardOccurrence = cardOccurrences.head
-    if (maxCardOccurrence.occurrence == 2) {
+    if (maxCardOccurrence.occurrence == 3) {
+      if (cardOccurrences(1).occurrence == 2) {
+        s"Full House of : ${maxCardOccurrence.figure} and ${cardOccurrences(1).figure}"
+      } else {
+        s"threes of : ${maxCardOccurrence.figure}"
+      }
+    } else if (maxCardOccurrence.occurrence == 2) {
       if (cardOccurrences(1).occurrence == 2) {
         s"two pairs of : ${maxCardOccurrence.figure}, ${cardOccurrences(1).figure}"
       } else {
